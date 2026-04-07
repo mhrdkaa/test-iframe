@@ -10,7 +10,7 @@
     <h1 style="color: red;">LEPASKAN "ENTER" SEKARANG!</h1>
     <div id="status" style="border: 2px solid black; padding: 20px;">Menunggu Ghost Gesture...</div>
 
-    <script>
+    <!-- <script>
         window.addEventListener('keyup', async (e) => {
             if (e.key === 'Enter') {
                 const isActive = navigator.userActivation.isActive;
@@ -30,7 +30,24 @@
                 }
             }
         });
-    </script>
+    </script> -->
+    <script>
+    window.addEventListener('keyup', async (e) => {
+        if (e.key === 'Enter') {
+            const isActive = navigator.userActivation.isActive;
+            if (isActive) {
+                try {
+                    await alert("Bypass Berhasil via User Activation!");
+                    if (document.getElementById('status')) {
+                        document.getElementById('status').innerHTML += "<p style='color:red;'>✅ Alert Executed!</p>";
+                    }
+                } catch (err) { 
+                    console.error("Gagal eksekusi alert:", err);
+                }
+            }
+        }
+    });
+</script>
 </body>
 
 </html>
