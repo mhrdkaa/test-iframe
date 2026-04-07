@@ -33,20 +33,22 @@
     </script> -->
     <script>
     window.addEventListener('keyup', async (e) => {
-        if (e.key === 'Enter') {
-            const isActive = navigator.userActivation.isActive;
-            if (isActive) {
-                try {
-                    await alert("Bypass Berhasil via User Activation!");
-                    if (document.getElementById('status')) {
-                        document.getElementById('status').innerHTML += "<p style='color:red;'>✅ Alert Executed!</p>";
-                    }
-                } catch (err) { 
-                    console.error("Gagal eksekusi alert:", err);
+    if (e.key === 'Enter') {
+        const isActive = navigator.userActivation.isActive;
+        
+        if (isActive) {
+            try {
+                let win = window.open("", "_blank"); 
+                win.alert("Bypass Berhasil via Ghost Gesture!");
+                if (document.getElementById('status')) {
+                    document.getElementById('status').innerHTML += "<p style='color:green;'>✅ Escaped & Alert Executed!</p>";
                 }
+            } catch (err) { 
+                console.error("Gagal eksekusi:", err);
             }
         }
-    });
+    }
+});
 </script>
 </body>
 
